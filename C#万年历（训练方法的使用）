@@ -1,0 +1,162 @@
+using System;
+
+namespace Text.Ste
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            
+            Console.WriteLine("输入要打印的年份");
+            int year = int.Parse(Console.ReadLine());
+            if (year<1900)
+            {
+                Console.WriteLine("输入的年份不正确,请重新输入");
+            }
+            else
+            {
+                if (Year(year))
+                {
+                    Console.WriteLine("该年份{0}为闰年",year);
+                }
+                else
+                {
+                    Console.WriteLine("该年份{0}不为闰年", year);
+                }
+            }
+            int month;
+            do
+            {
+                Console.WriteLine("输入要打印的月份");
+                 month = int.Parse(Console.ReadLine());
+
+            } while (month > 12 || month < 0);
+                
+
+            
+            
+            Month(year,month);
+            int Days = GetSumDays(year,month);
+            Console.WriteLine("距离1900年一月一日有{0}天", Days);
+            string[] Week = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日", };
+            for (int i = 0; i < Week.Length; i++)
+            {
+                string Weeks = Week[i];
+                Console.Write(Weeks+"\t");
+               
+
+            }
+            Console.WriteLine();
+            int week = Days % 7 + 1;
+            if (week == 1)
+            {
+                week = 0;
+            }
+            for (int i = 1; i <week; i++)
+            {
+                Console.Write("\t");
+            }
+            int days = Month(year, month);
+            for (int i = 1; i < days; i++)
+            {
+                Console.Write(i + "\t");
+                if ((i+days) % 7 == 1)
+                {
+                    Console.WriteLine(" ");
+                }
+            }
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// 定义一个Year方法，判断平闰年
+        /// </summary>
+        /// <param name="year">输入的年份</param>
+        /// <returns></returns>
+        public static bool Year( int year)
+        {
+            //判断是否为平闰年
+            bool isSuccess = false;
+            if (year%4==0 &&year%100!=0 ||year/400==0)
+            {
+                isSuccess = true;
+            }
+            return isSuccess;
+        }
+        /// <summary>
+        /// 定义一个月份的方法，判断每月的天数
+        /// </summary>
+        /// <param name="year">要查询的年份</param>
+        /// <param name="month">这一年的月份</param>
+        /// <returns></returns>
+        public static int Month(int year, int month)
+        {
+            //判断每月的天数，同时判断平闰年的2月的天数
+                switch (month)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        return 31;
+                   case 2:
+                    if (Year(year))
+                    {
+                        return 29;
+                    }
+                    else
+                    {
+                        return 28;
+                    }
+                        
+                    default:
+                        return 30;
+                }
+            
+            
+        }
+        /// <summary>
+        /// 定义一个平闰年一年的总天数的方法
+        /// </summary>
+        /// <param name="year">输入的年份年份</param>
+        /// <returns></returns>
+        public static int GetDays(int year)
+        {
+            //定义一个变量获取平闰年的天数
+            int days = 0;
+            if (Year(year))
+            {
+                days= 366;
+            }
+            else
+            {
+                days= 365;
+            }
+            return days;
+        }
+        /// <summary>
+        /// 定义一个方法，判断输入的年份到1900年1月1日有多少天
+        /// </summary>
+        /// <param name="year">输入的年份</param>
+        /// <param name="month">输入的月份</param>
+        /// <returns></returns>
+        public static int GetSumDays(int year,int month)
+        {
+            //定义一个变量，来获取每年的天数进行累加
+            int sum = 0;
+            for (int i = 1900; i < year; i++)
+            {
+                sum += GetDays(year);
+            }
+            for (int j = 1; j < 13; j++)
+            {
+                sum += Month(year,j);
+            }
+            return sum;
+        }
+    }
+}

@@ -1,0 +1,196 @@
+
+#region 1、循环判断一个是不是质数
+Console.WriteLine("输入需要判断的数字");
+int char1 = int.Parse(Console.ReadLine());
+bool isSuccess = true;
+for (int j = 2; j < char1; j++)
+{
+    if (char1 % j == 0 )
+    {
+        isSuccess = false;
+        Console.WriteLine("该数字{0}不是质数", char1);
+        break;
+   }
+}
+if (isSuccess)
+{
+    if ( char1 == 1)
+    {
+        Console.WriteLine("该数字{0}不是质数", char1);
+    }
+    else
+    {
+        Console.WriteLine("该数字{0}是质数", char1);
+    }
+
+}
+#endregion
+
+#region 2、判断100以内的所有质数
+for (int i = 2; i < 101; i++)
+{
+    bool isSuccess = true;
+    for (int j = 2; j < i; j++)
+    {
+        if (i % j == 0)
+        {
+            isSuccess = false;
+            break;
+        }
+    }
+    if (isSuccess)
+    {
+        Console.WriteLine("该数{0}是质数", i);
+   }
+}
+#endregion
+
+#region 3、乘法口诀
+for (int i = 1; i < 10; i++)
+{
+    for (int j = 1; j <= i; j++)
+   {
+       Console.Write(j + "*" + i + "=" + (i * j) + "  ");
+   }
+   Console.WriteLine();
+}
+#endregion
+
+#region 4、一个游戏，前20关是每一关自身的分数，21-30关每一关是10分，31-40关，每一关是20分，41-49关，每一关是30分，第50关是100分，输入你现在闯到的关卡数，求你现在拥有的分数。
+Console.WriteLine("输入当前关卡数。");
+int i = int.Parse(Console.ReadLine());
+int fenshu = 0;
+for (int n = 1; n <= i; n++)
+{
+    if (n < 21)
+    {
+        fenshu += n;
+    }
+    else if ( n < 31)
+        {
+       fenshu += 10;
+    }
+    else if ( n < 41)
+    {
+        fenshu += 20;
+    }
+    else if ( n < 50)
+    {
+        fenshu += 30;
+    }
+    else
+    {
+        fenshu += 100;
+    }
+}
+Console.WriteLine("您的最终得分为{0}", fenshu);
+#endregion
+
+#region 5、求下列表达式的值，写出你想到的一种或几种实现方法：1-2+3-4+.....+m?
+Console.WriteLine("输入一个值");
+int m = int.Parse(Console.ReadLine());
+int sum = 0;
+//方法一
+for (int i = 1; i <= m; i++)
+{
+    if (i % 2 == 0)
+    {
+        int n = i * -1;
+        Console.Write(n);
+        sum += n;
+        continue;
+    }
+    else
+    {
+        if (i > 1)
+        {
+            Console.Write("+");
+        }
+
+    }
+    Console.Write(i);
+    sum += i;
+}
+Console.WriteLine("最终值为{0}", sum);
+//方法二
+Console.WriteLine("输入一个值");
+int m = int.Parse(Console.ReadLine());
+int sum = 0;
+if (m % 2 == 0)
+{
+    m = m / 2;
+    sum = -m;
+    Console.WriteLine(sum);
+}
+else
+{
+    m = m + 1;
+    m = m / 2;
+    sum = m;
+    Console.WriteLine(sum);
+}
+#endregion
+
+#region 6、输出一下菱形
+Console.WriteLine("输入一个数字");
+int num = int.Parse(Console.ReadLine());
+for (int i = 1; i <= num; i++)
+{
+    for (int k1 = num - 1; k1 > i - 1; k1--)
+    {
+        Console.Write(" ");
+   }
+    for (int j = 1; j < i; j++)
+    {
+        Console.Write(j);
+    }
+    for (int k = i; k >= 1; k--)
+    {
+        Console.Write(k);
+    }
+    Console.WriteLine("");
+}
+for (int i = num; i > 0; i--)
+{
+   for (int k1 = num - 1; k1 > i - 1; k1--)
+    {
+        Console.Write(" ");
+    }
+    for (int j = 1; j < i; j++)
+    {
+        Console.Write(j);
+    }
+    for (int k = i; k >= 1; k--)
+    {
+        Console.Write(k);
+    }
+    Console.WriteLine(" ");
+}
+#endregion
+
+#region 7、请你找到最小的整数X，同时满足： X是2019的整倍数, X的每一位数字是奇数
+
+for (int i = 2019; i > 0; i += 2019)
+{
+    //给数字一个标识进行区分
+    bool isSuccess = true;
+    //用一个变量来代替i,使i的值不变 
+    int t = i;
+    //依次判断每一位的数字是否为奇数
+    while (t > 0)
+    {
+        //偶数判断，如果为偶数定为false
+        if (t % 10 % 2 == 0)
+         {
+           isSuccess = false;
+        }
+        //t为奇数,循环判断每一位数字是否全为奇数
+        t /=  10;
+    }
+    if (isSuccess)
+   {
+        Console.WriteLine(i);
+        break;
+   }
+}
+#endregion
