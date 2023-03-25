@@ -7,37 +7,33 @@ namespace Text.Ste
         static void Main(string[] args)
         {
 
-            
-            Console.WriteLine("输入要打印的年份");
-            int year = int.Parse(Console.ReadLine());
-            if (year<1900)
+
+
+            int year;
+            do
             {
-                Console.WriteLine("输入的年份不正确,请重新输入");
+                Console.WriteLine("输入要打印的年份");
+                year = int.Parse(Console.ReadLine());
+            } while (year < 1900);
+
+            if (Year(year))
+            {
+                Console.WriteLine("该年份{0}为闰年", year);
             }
             else
             {
-                if (Year(year))
-                {
-                    Console.WriteLine("该年份{0}为闰年",year);
-                }
-                else
-                {
-                    Console.WriteLine("该年份{0}不为闰年", year);
-                }
+                Console.WriteLine("该年份{0}不为闰年", year);
             }
+
             int month;
             do
             {
                 Console.WriteLine("输入要打印的月份");
                  month = int.Parse(Console.ReadLine());
 
-            } while (month > 12 || month < 0);
-                
-
-            
-            
-            Month(year,month);
-            int Days = GetSumDays(year,month);
+        } while (month > 12 || month< 0);
+            Month(year, month);
+        int Days = GetSumDays(year,month);
             Console.WriteLine("距离1900年一月一日有{0}天", Days);
             string[] Week = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日", };
             for (int i = 0; i < Week.Length; i++)
@@ -45,10 +41,11 @@ namespace Text.Ste
                 string Weeks = Week[i];
                 Console.Write(Weeks+"\t");
                
-
             }
             Console.WriteLine();
-            int week = Days % 7 + 1;
+            //判断周几
+            int week = Days % 7;
+            //周一的时候不加制表符 
             if (week == 1)
             {
                 week = 0;
@@ -58,10 +55,11 @@ namespace Text.Ste
                 Console.Write("\t");
             }
             int days = Month(year, month);
-            for (int i = 1; i < days; i++)
+            for (int i = 1; i <= days;  i++)
             {
-                Console.Write(i + "\t");
-                if ((i+days) % 7 == 1)
+                  Console.Write(i + "\t");
+                //星期一的时候换行
+                if ((i + Days) % 7 == 1)
                 {
                     Console.WriteLine(" ");
                 }
@@ -148,14 +146,17 @@ namespace Text.Ste
         {
             //定义一个变量，来获取每年的天数进行累加
             int sum = 0;
+            
             for (int i = 1900; i < year; i++)
             {
                 sum += GetDays(year);
+                
             }
-            for (int j = 1; j < 13; j++)
+            for (int j = 1; j <= month; j++)
             {
-                sum += Month(year,j);
+                sum += Month(year, j);
             }
+
             return sum;
         }
     }
