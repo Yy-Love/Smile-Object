@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        .container {
+            position: relative;
+            /* width: 100%; */
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .tabs input {
+            visibility: hidden;
+            display: none;
+
+        }
+
+        .buttons {
+            /* 实现水平居中 */
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* 变为横向布局 */
+            display: flex;
+            /* 设置间距10px */
+            gap: 10px;
+            /* 设置层级 */
+            z-index: 10000000;
+        }
+
+        .buttons label {
+            /* 初始化按钮样式 */
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            opacity: 0.5;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        /* 当tabs的第一个input被选中，buttons的第一个label的不透明度设为1，宽度为50px */
+        .tabs input:nth-child(1):checked~.buttons label:nth-child(1),
+        .tabs input:nth-child(2):checked~.buttons label:nth-child(2),
+        .tabs input:nth-child(3):checked~.buttons label:nth-child(3) {
+            opacity: 1;
+            width: 50px;
+        }
+
+        /* 定义 content 主要内容 */
+        .content {
+            position: relative;
+            /* 3 个 页面宽度 */
+            width: 300vw;
+            /* 横向布局 */
+            display: flex;
+            /* 添加过渡效果 */
+            transition: 0.5s;
+        }
+
+        /* 定义每一个页面的共同样式  */
+        .content .box {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            /* flex布局 水平垂直居中 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            user-select: none;
+            padding: 40px
+        }
+
+        .content .box:nth-child(1) {
+            background: linear-gradient(to right, #1cefff, #c0c0aa);
+        }
+
+        .content .box:nth-child(2) {
+            background: linear-gradient(to right, #9cecfb, #65c7f7, #0052d4);
+        }
+
+        .content .box:nth-child(3) {
+            background: linear-gradient(to right, #3494e6, #ec6ead);
+        }
+
+        /* 这里是实现轮播的关键点 , 主要实现思路是运用到的相对定位 的偏移值 
+            当我们点击第一个button 的适合 button 已经绑定input元素
+            点击第一个button content 元素 盒子的left 向左偏移100vw
+            因为一个页面 是100vw 这个content 盒子定义的大小是300vw 
+        */
+        .tabs input:nth-child(1):checked~.content {
+            left: 0;
+            
+        }
+        .tabs input:nth-child(2):checked~.content {
+            left: -100vw;
+        }
+        .tabs input:nth-child(3):checked~.content {
+            left: -200vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <!-- type radio 单选框   name 为一组 这样三个单选只能选择一个 -->
+            <input type="radio" id="web" name="slider">
+            <input type="radio" id="grap" name="slider">
+            <input type="radio" id="photo" name="slider">
+
+            <div class="buttons">
+                <!-- for 绑定 input -->
+                <label for="web"></label>
+                <label for="grap"></label>
+                <label for="photo"></label>
+            </div>
+            <div class="content">
+                <div class="box web"></div>
+                <div class="box grap"></div>
+                <div class="box photo"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
